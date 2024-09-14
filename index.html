@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Генераторы для НРИ</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .button-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-direction: column;
+      }
+      .button-link {
+        flex: 1;
+        min-width: 150px;
+        padding: 10px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        color: black;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .button-link:hover {
+        background-color: #e0e0e0;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      @media (max-width: 600px) {
+        .button-container {
+          flex-direction: column;
+        }
+
+        .button-link {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Генераторы для НРИ</h1>
+    <div class="button-container">
+      <a href="fantasy.html" class="button-link">Фэнтези генератор</a>
+      <a href="cyberpunk.html" class="button-link">Киберпанк генератор</a>
+      <a href="solo.html" class="button-link">Соло TRPG</a>
+    </div>
+  </body>
+</html>
