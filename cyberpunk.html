@@ -3,70 +3,263 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <title>Киберпанк генератор</title>
     <style>
+           :root {
+          --neon-blue: #0ff;
+          --neon-pink: #f0f;
+          --neon-yellow: #ff0;
+          --dark-bg: #0a0a0f;
+          --glass-bg: rgba(16, 16, 32, 0.7);
+      }
+
+      * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+      }
+
       body {
-        font-family: Arial, sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
+          font-family: 'Orbitron', sans-serif;
+          background-color: #121212;
+          background: url('images/foncyberpunk.jpg') no-repeat center center fixed;
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 20px;
+          min-height: 100vh;
+          position: relative;
+          overflow-x: hidden;
       }
+
+      body::before {
+          content: '';
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: repeating-linear-gradient(
+              transparent 0%,
+              rgba(0, 0, 0, 0.1) 50%,
+              transparent 100%
+          );
+          animation: scanline 10s linear infinite;
+          pointer-events: none;
+          z-index: 1;
+      }
+
+      .scan-line {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: rgba(0, 255, 255, 0.3);
+          box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+          animation: scan 3s linear infinite;
+          z-index: 2;
+      }
+
+      h1 {
+          font-size: 2.5em;
+          text-align: center;
+          margin: 1em 0;
+          color: var(--neon-blue);
+          text-transform: uppercase;
+          letter-spacing: 4px;
+          text-shadow: 
+              0 0 10px var(--neon-blue),
+              0 0 20px var(--neon-blue),
+              0 0 30px var(--neon-blue);
+          animation: glitch 5s infinite;
+      }
+
       .button-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-bottom: 20px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 15px;
+          margin: 2em 0;
+          position: relative;
+          z-index: 3;
       }
+
       button {
         flex: 1;
         min-width: 150px;
-        padding: 10px;
-        font-size: 16px;
-      }
-      textarea {
+        padding: 15px;
+        font-size: 1em;
+        font-family: 'Orbitron', sans-serif;
+        color: var(--neon-blue);
+        background: rgba(10, 10, 15, 0.5); /* Полупрозрачный фон */
+        backdrop-filter: blur(8px); /* Эффект размытия */
+        -webkit-backdrop-filter: blur(8px); /* Для Safari */
+        border: 2px solid var(--neon-blue);
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s;
+        text-shadow: 0 0 5px var(--neon-blue);
+    }
+
+    button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
         width: 100%;
-        height: 300px;
-        box-sizing: border-box;
-        font-size: 14px;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(0, 255, 255, 0.2),
+            transparent
+        );
+        transition: 0.5s;
+        z-index: 1;
+    }
+
+    button:hover::before {
+        left: 100%;
+    }
+
+    button:hover {
+        background: rgba(0, 255, 255, 0.2); /* Полупрозрачный неоновый фон при наведении */
+        color: #fff;
+        box-shadow: 
+            0 0 10px var(--neon-blue),
+            0 0 20px var(--neon-blue),
+            0 0 40px var(--neon-blue);
+        transform: translateY(-2px);
+        text-shadow: 0 0 8px var(--neon-blue);
+    }
+
+    button:active {
+        transform: translateY(1px);
+        background: rgba(0, 255, 255, 0.3); /* Немного более непрозрачный при нажатии */
+    }
+
+    /* Добавляем сияние вокруг кнопок */
+    .button-container button {
+        position: relative;
+    }
+
+    .button-container button::after {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: transparent;
+        border-radius: inherit;
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+
+    .button-container button:hover::after {
+        opacity: 1;
+    }
+
+      textarea {
+          width: 100%;
+          height: 300px;
+          background: var(--glass-bg);
+          border: 2px solid var(--neon-pink);
+          color: var(--neon-yellow);
+          padding: 20px;
+          font-family: 'Share Tech Mono', monospace;
+          font-size: 1em;
+          resize: none;
+          margin-bottom: 2em;
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          box-shadow: 
+              0 0 10px var(--neon-pink),
+              inset 0 0 20px rgba(255, 0, 255, 0.3);
+          transition: all 0.3s ease;
       }
-      h1 {
-        text-align: center;
-        margin-bottom: 20px;
+
+      textarea:focus {
+          outline: none;
+          border-color: var(--neon-blue);
+          box-shadow: 
+              0 0 20px var(--neon-blue),
+              inset 0 0 30px rgba(0, 255, 255, 0.3);
+      }
+
+      iframe {
+          border: 2px solid var(--neon-blue);
+          box-shadow: 0 0 20px var(--neon-blue);
+          backdrop-filter: blur(5px);
+          -webkit-backdrop-filter: blur(5px);
+          background: var(--glass-bg);
+          transition: all 0.3s ease;
+      }
+
+      @keyframes scanline {
+          0% { background-position: 0 0; }
+          100% { background-position: 0 100%; }
+      }
+
+      @keyframes scan {
+          0% { transform: translateY(-100vh); }
+          100% { transform: translateY(100vh); }
+      }
+
+      @keyframes glitch {
+          0% {
+              text-shadow: 
+                  0 0 10px var(--neon-blue),
+                  0 0 20px var(--neon-blue),
+                  0 0 30px var(--neon-blue);
+          }
+          2% {
+              text-shadow: 
+                  3px 0 10px var(--neon-pink),
+                  -3px 0 10px var(--neon-blue);
+          }
+          4% {
+              text-shadow: 
+                  0 0 10px var(--neon-blue),
+                  0 0 20px var(--neon-blue),
+                  0 0 30px var(--neon-blue);
+          }
       }
 
       @media (max-width: 600px) {
-        .button-container {
-          flex-direction: column;
-        }
-        button {
-          width: 100%;
-        }
+          .button-container {
+              flex-direction: column;
+          }
+          
+          button {
+              width: 100%;
+          }
+          
+          h1 {
+              font-size: 1.8em;
+          }
       }
-    </style>
-  </head>
-  <body>
-    <h1>Киберпанк генератор</h1>
-    <div class="button-container">
+  </style>
+</head>
+<body>
+  <div class="scan-line"></div>
+  <h1>Киберпанк генератор</h1>
+  <div class="button-container">
       <button onclick="generateSector()">Генерировать сектор</button>
       <button onclick="generateBuilding()">Генерировать здание</button>
       <button onclick="generateQuest()">Генерировать квест</button>
       <button onclick="generateBand()">Генерировать банду</button>
       <button onclick="generateTraits()">Генерировать черты</button>
-    </div>
-    <textarea id="result" readonly></textarea>
-    <div style="position: relative; overflow: auto; padding-top: 100%">
-      <iframe
-        style="
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border: 0;
-        "
-        src="https://chartopia.d12dev.com/embed/chart/24833/?layout=compact"
-      ></iframe>
-    </div>
+  </div>
+  <textarea id="result" readonly placeholder="// OUTPUT TERMINAL >>"></textarea>
     <script>
       // Таблицы
       const sector_types = {
